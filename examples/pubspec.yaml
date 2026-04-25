@@ -1,0 +1,22 @@
+name: resengi_examples
+description: Live interactive demos of the Resengi open-source packages, embedded in the Open Source page of the website.
+publish_to: none
+
+environment:
+  sdk: ^3.10.1
+  flutter: ">=3.27.0"
+
+flutter:
+  uses-material-design: true
+
+dependencies:
+  flutter:
+    sdk: flutter
+  hand_drawn_toolkit: ^0.3.0
+  page_turn_animation: ^0.1.4
+  recurrence_kit: ^0.1.1
+  flip_calendar: ^0.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

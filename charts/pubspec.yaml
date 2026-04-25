@@ -1,0 +1,21 @@
+name: resengi_charts
+description: Live hand-drawn charts for the Resengi Financials page.
+publish_to: none
+
+environment:
+  sdk: ^3.10.1
+  flutter: ">=3.27.0"
+
+flutter:
+  uses-material-design: true
+
+dependencies:
+  flutter:
+    sdk: flutter
+  hand_drawn_toolkit: ^0.3.0
+  csv: ^8.0.0
+  http: ^1.6.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

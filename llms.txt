@@ -1,0 +1,33 @@
+# Resengi
+
+Resengi is a software development and AI engineering studio built on radical financial transparency, cost-based pricing, and open-source contribution. We build apps and AI systems for startups and growing companies, with published financials (to be externally reviewed by a CPA each quarter once client work begins) and a default commitment to release non-client-specific tooling as open source. Based in San Diego, California.
+
+## Core pages
+
+- [Home](https://resengi.io/): Overview of Resengi's values (honesty, transparency, fairness) and services.
+- [What We Do](https://resengi.io/services.html): Services offered — app development, AI engineering, prototype-to-production — with cost-based pricing where under-budget projects cost clients less.
+- [Why We Do What We Do](https://resengi.io/why.html): Mission, vision, two-phase business plan (client work first, products second), core values, and guiding principles.
+- [Financials](https://resengi.io/financials.html): Published financial data — line-item expenses and (upcoming) per-project revenue and margins.
+- [Open Source](https://resengi.io/opensource.html): Published Flutter/Dart packages and contribution philosophy.
+- [Contact](https://resengi.io/contact.html): How to get in touch.
+
+## Data
+
+- [Expense records (CSV)](https://resengi.io/data/expenses.csv): Line-item company expenses with date, category, full amount, business-use percentage, and company-attributed amount.
+
+## Open source
+
+- [pub.dev publisher page](https://pub.dev/publishers/resengi.io): All published Flutter/Dart packages under the Resengi publisher.
+- [GitHub organization](https://github.com/resengi): Source code for all open-source work.
+
+### Published packages
+
+- [hand_drawn_toolkit](https://pub.dev/packages/hand_drawn_toolkit): Lightweight Flutter package for rendering hand-drawn, sketchy lines, borders, and containers. MIT licensed.
+- [page_turn_animation](https://pub.dev/packages/page_turn_animation): Realistic page turn/curl animation effect for transitioning between content using captured images. MIT licensed.
+- [recurrence_kit](https://pub.dev/packages/recurrence_kit): Standalone recurrence rule system with data models, computation engine, and picker UI widget. MIT licensed.
+- [flip_calendar](https://pub.dev/packages/flip_calendar): Customizable calendar widget with page-turn animations and swipe gesture navigation. MIT licensed.
+
+## Contact
+
+- General inquiries and sales: contact@resengi.io
+- Security disclosure: security@resengi.io
