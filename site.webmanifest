@@ -1,0 +1,22 @@
+{
+  "name": "Resengi",
+  "short_name": "Resengi",
+  "description": "Software development and AI engineering, built on honesty, transparency, and fairness.",
+  "start_url": "/",
+  "display": "browser",
+  "theme_color": "#1570EF",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /flutter-charts/
+Disallow: /flutter-examples/
+
+Sitemap: https://resengi.io/sitemap.xml

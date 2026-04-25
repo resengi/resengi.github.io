@@ -1,0 +1,147 @@
+# Resengi — Full Content
+
+Resengi is a software development and AI engineering studio built on radical financial transparency, cost-based pricing, and open-source contribution. We build apps and AI systems for startups and growing companies. Our books are public, our pricing is broken down and disclosed upfront, and the tooling we build that is not client-specific is released as open source. Based in San Diego, California. The name comes from Research + Engineering.
+
+---
+
+## Page: Home
+
+### Values
+
+Three values guide everything we do, each with a concrete commitment that proves it:
+
+**Honesty.** Direct communication, especially when it's uncomfortable. If a project is going off-track, you hear it from us first. We name trade-offs explicitly rather than hoping you'll miss them.
+
+**Transparency.** Published financials, externally reviewed. Our books are public. Anyone can see what we earn, what we spend, and what margin we make. Our books will be externally reviewed by a CPA each quarter once client work begins.
+
+**Fairness.** Cost-based pricing, not market-based pricing. We show our cost breakdown and margin upfront. If a project comes in under budget, you pay less. If it goes over, we absorb the difference.
+
+---
+
+## Page: What We Do
+
+We build software for clients who need engineering help. App development, AI engineering, and the technical work that turns ideas into products.
+
+### Services
+
+**App Development.** From idea to shipped product. We build mobile and web applications for clients who know what they need but need a team to make it real. We work across platforms and tech stacks, choosing the right tools for the problem rather than forcing everything into one framework.
+
+**AI Engineering.** We help companies build AI-powered features, develop custom pipelines, and integrate language models and other AI systems into their products. We focus on solutions that work reliably in production and are built to last.
+
+**Prototype to Production.** Have an MVP, a proof of concept, or an early prototype that works but is not production-ready? We specialize in taking early-stage software and bringing it to the level of quality, security, and scalability it needs to serve real users.
+
+### Who we work best with
+
+We work best with people who care about how their software is built and want an honest picture of what it will actually cost. Whether you are an early-stage founder with a rough prototype, or a growing team solving a complex AI challenge, we value partners who appreciate plain speaking and fair dealing.
+
+### Example projects
+
+- Cross-platform mobile apps: new Flutter or React Native apps from scratch, or native iOS / Android when the platform matters.
+- AI integration and pipelines: retrieval-augmented generation systems, language-model features inside existing products, and evaluation harnesses for AI outputs.
+- Prototype to production: taking a working proof-of-concept and hardening it into a system that can handle real users, real data, and real scale.
+- Technical due diligence: short, focused engagements reviewing a codebase or architecture for clients evaluating an acquisition, investment, or technical hire.
+- Developer tooling: custom CLIs, build pipelines, automation, or internal tools that make engineering teams faster.
+- Technical advisory: part-time engagements helping teams make technical decisions, review architecture, and evaluate vendors.
+
+### How we price
+
+Our pricing model is straightforward. We estimate the cost of a project — hours, contractor rates, tooling — add a fair, disclosed margin, and present the full breakdown to the client before work begins.
+
+If a project comes in under budget, you pay less. If it comes in over budget, we absorb the difference. You will always know what you are paying for and why.
+
+This approach means our margins may be lower and more variable than a typical agency's. We accept this trade-off because we prioritize building sustainable, transparent partnerships over maximizing short-term margins.
+
+---
+
+## Page: Why We Do What We Do
+
+We believe that a software company can be commercially successful while being honest about its numbers, fair to its clients and employees, and generous with the broader engineering community. Resengi is our effort to put that belief into practice.
+
+### Mission
+
+To be good people doing good work in the most open, honest, and fair way that we can.
+
+### Vision
+
+A software company where every dollar is accounted for in public, every engagement leaves something useful behind for the wider world, and the team eventually builds products of its own that carry the same principles forward.
+
+Resengi is being built in two phases. Phase 1 establishes the foundation through client work. Phase 2 introduces our own products, addressing several ideas for improved tooling around AI generation and quality, as well as various applications built to enhance the lives of the people who use them. The transition will be gradual, funded by the work and team built in Phase 1.
+
+### Core values
+
+**Honesty.** We tell the truth, especially when it is uncomfortable. We deliver bad news directly. We acknowledge mistakes. If something is going wrong on a project, the client hears about it from us first.
+
+**Transparency.** Honesty is what we say; transparency is what we show. Our financials are published, our pricing is broken down and explained, and we choose openness as a default because we believe it is the right way to operate.
+
+**Fairness.** Clients pay what the work actually costs plus a fair, disclosed margin. Employees and contractors are compensated fairly. When the books come in better than expected, the savings are passed along.
+
+### Guiding principles
+
+**Openness.** We contribute to the open-source community as a default. Tooling we build that is not client-specific is released publicly. We believe the engineering community is stronger when its members give back to it, and we want to be part of that.
+
+**Technical Excellence.** Our values do not substitute for quality. We are engineers first, and we take pride in building software that works, scales, and lasts. We are willing to push back when we think a technical decision is wrong, and we are willing to do the harder work of testing, documentation, and maintenance.
+
+**Pay It Forward.** Don't pay it back, pay it forward. We try to leave the world a little better than we found it. This is the through-line that connects everything else: open-source contribution, fair pricing, honest communication, and the long-term vision of building products that solve real problems.
+
+---
+
+## Page: Financials
+
+We publish our financials because we believe trust is earned through verifiable honesty. Everything on the Financials page is backed by records that an external CPA can review, and will review each quarter once client work begins.
+
+### How this works
+
+**Expenses** are published at line-item level — every transaction, with date, description, category, and amount. Where an expense is shared between personal and business use (such as AI subscriptions), we disclose the full amount and the business-use percentage.
+
+**Revenue** will be published per-project (anonymized) once client work begins, showing contract value, actual cost, and margin for each engagement.
+
+**External review:** A CPA reviews these financials on a quarterly basis once there is meaningful financial activity. Review reports will be linked here. Resengi is currently in its founding phase — CPA reviews will begin after the first full quarter of operations.
+
+### Raw data access
+
+All financial data is available for download as a CSV file at:
+- https://resengi.io/data/expenses.csv
+
+Anyone can download the file, verify it, and build their own analysis.
+
+### On the 80% figure
+
+Three subscriptions on this list — Claude Max, ChatGPT Pro, and Google One AI Pro — are attributed to the company at 80% rather than 100%. In practice, actual business use of these tools is closer to 90–95%; the vast majority of conversations are tied directly to project work, with the remaining fraction being occasional personal use. We attribute 80% rather than our best estimate because we'd rather understate business use than overstate it. If the real ratio ever drops meaningfully — different tools, different usage patterns — this number will be revisited and the change disclosed on the Financials page.
+
+---
+
+## Page: Open Source
+
+We contribute to the open-source community as a default. Tooling we build that is not client-specific is released publicly under the Resengi GitHub organization.
+
+### Philosophy
+
+We believe the engineering community is stronger when its members give back to it. Every client engagement is a chance to build something useful that outlasts the project — and we want to share that work with the community that has given us so much.
+
+We choose licenses thoughtfully. Small utilities and packages typically use permissive licenses like MIT. Larger frameworks or systems may use more protective licenses. The goal is to be generous while being practical.
+
+### Published packages
+
+- **hand_drawn_toolkit** — A lightweight Flutter package for rendering hand-drawn, sketchy lines, borders, and containers. MIT licensed. https://pub.dev/packages/hand_drawn_toolkit — https://github.com/resengi/hand_drawn_toolkit
+- **page_turn_animation** — A Flutter package that provides a realistic page turn/curl animation effect for transitioning between content using captured images. MIT licensed. https://pub.dev/packages/page_turn_animation — https://github.com/resengi/page_turn_animation
+- **recurrence_kit** — A standalone recurrence rule system with data models, computation engine, and picker UI widget. MIT licensed. https://pub.dev/packages/recurrence_kit — https://github.com/resengi/recurrence_kit
+- **flip_calendar** — A customizable calendar widget with page-turn animations and swipe gesture navigation. MIT licensed. https://pub.dev/packages/flip_calendar — https://github.com/resengi/flip_calendar
+
+All open-source work is available at https://github.com/resengi and https://pub.dev/publishers/resengi.io.
+
+### For clients
+
+When we work on your project, any tooling we develop that is not specific to your codebase may be released as open source. This is part of how we operate, and it is discussed during contract negotiation. We can work out an exception in the contract if your codebase is sensitive — but openness is our starting point.
+
+We find that work done with the intention of sharing tends to be higher quality, and we take pride in contributing useful tools back to the community we are a part of.
+
+---
+
+## Page: Contact
+
+We would love to hear from you — whether you have a project in mind, a question about how we work, or just want to say hello.
+
+- General inquiries and sales: contact@resengi.io
+- Security disclosure: security@resengi.io
+
+Based in San Diego, California, US.

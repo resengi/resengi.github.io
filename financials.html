@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1570EF">
+  <title>Financials</title>
+  <meta name="description" content="Resengi publishes its financial data openly. View our expenses and project margins, with quarterly CPA review once client work begins.">
+
+  <link rel="canonical" href="https://resengi.io/financials.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Financials">
+  <meta property="og:description" content="Resengi publishes its financial data openly. Line-item expenses and project margins, with quarterly CPA review once client work begins.">
+  <meta property="og:image" content="https://resengi.io/og-image.png">
+  <meta property="og:url" content="https://resengi.io/financials.html">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Financials">
+  <meta name="twitter:description" content="Published financials, externally reviewed.">
+  <meta name="twitter:image" content="https://resengi.io/og-image.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "name": "Resengi Company Financials",
+    "description": "Line-item company expenses, published as part of Resengi's financial transparency commitment.",
+    "creator": { "@id": "https://resengi.io/#organization" },
+    "distribution": [
+      { "@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": "https://resengi.io/data/expenses.csv" }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Resengi</a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="primary-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">What We Do</a></li>
+        <li><a href="why.html">Why We Do What We Do</a></li>
+        <li><a href="financials.html" class="active">Financials</a></li>
+        <li><a href="opensource.html">Open Source</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main-content" class="page">
+    <section class="section">
+      <div class="blue-glass-card u-mb-40">
+        <h1 class="u-mb-12">Financials</h1>
+        <p class="u-lead u-mb-20">
+          We publish our financials because we believe trust is earned through verifiable honesty.
+        </p>
+        <h3 class="u-mb-12">How this works</h3>
+        <p class="u-mb-8">
+          <strong>Expenses</strong> are published at line-item level; every transaction, with date, description,
+          category, and amount. Where an expense is shared between personal and business use (such as AI subscriptions),
+          we disclose the full amount and the business-use percentage.
+        </p>
+        <p class="u-mb-8">
+          <strong>Revenue</strong> will be published per-project (anonymized) once client work begins, showing
+          contract value, actual cost, and margin for each engagement.
+        </p>
+        <p class="u-mb-0">
+          <strong>External review:</strong> A CPA reviews these financials on a quarterly basis once there
+          is meaningful financial activity. Review reports will be linked here. Resengi is currently in its
+          founding phase, CPA reviews will begin after the first full quarter of operations.
+        </p>
+      </div>
+
+      <div class="tabs-container">
+        <div class="tabs" role="tablist" aria-label="Financial data categories">
+          <button role="tab" id="tab-expenses-btn" aria-controls="tab-expenses"
+                  aria-selected="true" tabindex="0" class="tab-button active" data-tab="tab-expenses">Expenses</button>
+          <button role="tab" id="tab-revenue-btn" aria-controls="tab-revenue"
+                  aria-selected="false" tabindex="-1" class="tab-button" data-tab="tab-revenue">Revenue</button>
+        </div>
+
+        <div id="tab-expenses" role="tabpanel" aria-labelledby="tab-expenses-btn" class="tab-content active">
+          <div id="expense-stats"></div>
+          <div id="expenses-table">
+            <p class="loading-state">Loading expense data&hellip;</p>
+          </div>
+          <div class="note-small">
+            <p><strong>Note on shared tooling:</strong> AI subscriptions (Claude Max, ChatGPT Pro, Google One AI Pro) are expensed at 80%. While actual business use is closer to 90&ndash;95%, we use 80% because we would rather understate our business expenses than overstate them. If this ratio ever drops, we will update the figure and disclose the change here.</p>
+            <p>Raw data: <a href="data/expenses.csv">expenses.csv</a> &mdash; download, verify, or build your own analysis.</p>
+          </div>
+        </div>
+
+        <div id="tab-revenue" role="tabpanel" aria-labelledby="tab-revenue-btn" class="tab-content">
+          <div class="glass-card empty-state">
+            <h3>Revenue reporting coming soon</h3>
+            <p>
+              Resengi is currently in its founding phase. Per-project revenue data including contract
+              values, actual costs, and margins will be published here once client work begins.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="u-mt-48">Visualizations</h2>
+      <p>
+        These charts visualize our expense data using our open-source
+        <a href="opensource.html">hand_drawn_toolkit</a>.
+      </p>
+
+      <div id="charts-frame-wrapper" class="charts-frame-wrapper" aria-live="polite">
+        <div class="iframe-spinner">
+          <span class="spinner-dot" aria-hidden="true"></span>
+          <p>Loading charts&hellip;</p>
+        </div>
+        <noscript>
+          <div class="charts-load-failed">
+            <p>Charts require JavaScript to render. The raw data is available
+            in the table above and via the CSV link.</p>
+          </div>
+        </noscript>
+      </div>
+
+      <script>
+        (function () {
+          var wrapper = document.getElementById('charts-frame-wrapper');
+          if (!wrapper) return;
+
+          var booted = false;
+          var revealed = false;
+          var failureTimer = null;
+          var iframe = null;
+
+          function showLoadFailure() {
+            if (failureTimer) { clearTimeout(failureTimer); failureTimer = null; }
+            wrapper.innerHTML =
+              '<div class="charts-load-failed">' +
+                '<p>Charts couldn&rsquo;t load right now. ' +
+                'The raw data is still available in the table above and via the CSV link.</p>' +
+              '</div>';
+          }
+
+          function revealIframe(heightPx) {
+            if (revealed) return;
+            revealed = true;
+            if (failureTimer) { clearTimeout(failureTimer); failureTimer = null; }
+            iframe.style.height = heightPx + 'px';
+            iframe.classList.remove('charts-frame-hidden');
+            var spinner = wrapper.querySelector('.iframe-spinner');
+            if (spinner) spinner.remove();
+          }
+
+          // Listen for messages from the Flutter iframe. The iframe posts
+          // `{type: 'resengi-charts-ready', height: N}` once its grid has
+          // laid out, or `{type: 'resengi-charts-error'}` if data loading
+          // failed. We validate the source iframe, the origin, and the
+          // message shape before acting on anything.
+          function handleMessage(event) {
+            if (!iframe || event.source !== iframe.contentWindow) return;
+            if (event.origin !== window.location.origin) return;
+            var data = event.data;
+            if (!data || typeof data !== 'object') return;
+
+            if (data.type === 'resengi-charts-error') {
+              showLoadFailure();
+              return;
+            }
+            if (data.type === 'resengi-charts-ready'
+                && typeof data.height === 'number'
+                && isFinite(data.height)
+                && data.height > 0) {
+              if (!revealed) {
+                revealIframe(data.height);
+              } else {
+                // Subsequent messages (e.g. from a window resize inside
+                // the iframe) just update the height.
+                iframe.style.height = data.height + 'px';
+              }
+            }
+          }
+
+          function bootCharts() {
+            if (booted) return;
+            booted = true;
+
+            window.addEventListener('message', handleMessage);
+
+            iframe = document.createElement('iframe');
+            iframe.src = '/flutter-charts/';
+            iframe.className = 'charts-frame charts-frame-hidden';
+            iframe.title = 'Resengi financial charts';
+            iframe.loading = 'lazy';
+            // Iframes commonly fire `load` with an error document rather
+            // than firing `error` on URL failures, so the 8s timer below
+            // is the authoritative failure detector. We don't clear that
+            // timer on `load`. Clear it on the `ready` postMessage,
+            // which means the iframe actually rendered charts.
+            iframe.addEventListener('error', showLoadFailure);
+
+            // Append alongside the spinner. The hidden class absolutely-
+            // positions the iframe over the wrapper while it loads, so it
+            // doesn't push layout around and the spinner remains visible.
+            wrapper.appendChild(iframe);
+
+            // If we don't hear from the iframe within 8s, show fallback.
+            failureTimer = setTimeout(function () {
+              showLoadFailure();
+            }, 8000);
+          }
+
+          if ('IntersectionObserver' in window) {
+            var observer = new IntersectionObserver(function (entries) {
+              entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                  bootCharts();
+                  observer.disconnect();
+                }
+              });
+            }, { rootMargin: '200px' });
+            observer.observe(wrapper);
+          } else {
+            bootCharts();
+          }
+        })();
+      </script>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer-origin"><strong>Resengi</strong> — from <strong>Res</strong>earch + <strong>Engi</strong>neering. Every engagement is a chance to solve the problem in front of us and leave behind something useful for the wider world.</p>
+    <div class="footer-links">
+      <a href="financials.html">Financials</a>
+      <a href="https://github.com/resengi">GitHub</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <p>&copy; 2026 Resengi. All rights reserved.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

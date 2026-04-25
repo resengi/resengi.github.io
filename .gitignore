@@ -1,0 +1,24 @@
+# Flutter build output, produced by CI, not committed
+/flutter-charts/
+/flutter-examples/
+
+# Flutter project ignores (apply to charts/ and examples/)
+**/.dart_tool/
+**/build/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.packages
+**/ephemeral/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Editor artifacts
+.vscode/
+.idea/
+*.iml
+*.swp
+*.swo
+
+scripts/
