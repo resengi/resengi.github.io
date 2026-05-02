@@ -46,18 +46,22 @@ Widget buildMonthlyExpensesChart(
   final axis = niceYAxis(dataMax: tallestMonth);
 
   final bars = orderedMonths
-      .map((month) => BarGroup(
-            label: _shortMonthLabel(month),
-            segments: orderedCategories
-                .where((cat) => (grouped[month]?[cat] ?? 0) > 0)
-                .map((cat) => BarSegment(
-                      category: cat,
-                      value: grouped[month]![cat]!,
-                      color: palette[cat] ?? Colors.grey,
-                      fillAlpha: kStackedBarFillAlpha,
-                    ))
-                .toList(),
-          ))
+      .map(
+        (month) => BarGroup(
+          label: _shortMonthLabel(month),
+          segments: orderedCategories
+              .where((cat) => (grouped[month]?[cat] ?? 0) > 0)
+              .map(
+                (cat) => BarSegment(
+                  category: cat,
+                  value: grouped[month]![cat]!,
+                  color: palette[cat] ?? Colors.grey,
+                  fillAlpha: kStackedBarFillAlpha,
+                ),
+              )
+              .toList(),
+        ),
+      )
       .toList();
 
   final legend = orderedCategories
@@ -69,6 +73,7 @@ Widget buildMonthlyExpensesChart(
     tapHint: 'Tap a segment for the exact amount.',
     seed: 42,
     valueFormatter: _formatUsd,
+    legendConfig: ChartLegendConfig.externalBottomBoxed,
     data: BarChartData(
       title: '',
       yAxisLabel: 'USD',
@@ -103,17 +108,19 @@ Widget buildCategoryTotalsChart(
   final axis = niceYAxis(dataMax: entries.first.value);
 
   final bars = entries
-      .map((e) => BarGroup(
-            label: _shortCategoryLabel(e.key),
-            segments: [
-              BarSegment(
-                category: e.key,
-                value: e.value,
-                color: palette[e.key] ?? Colors.grey,
-                fillAlpha: kSingleBarFillAlpha,
-              ),
-            ],
-          ))
+      .map(
+        (e) => BarGroup(
+          label: e.key,
+          segments: [
+            BarSegment(
+              category: e.key,
+              value: e.value,
+              color: palette[e.key] ?? Colors.grey,
+              fillAlpha: kSingleBarFillAlpha,
+            ),
+          ],
+        ),
+      )
       .toList();
 
   return InteractiveBarChartCard(
@@ -121,18 +128,21 @@ Widget buildCategoryTotalsChart(
     tapHint: 'Tap a bar for the exact total.',
     seed: 43,
     valueFormatter: _formatUsd,
+    xLabelConfig: ChartLabelConfig.diagonalLeft,
+    legendConfig: ChartLegendConfig.hidden,
     data: BarChartData(
       title: '',
       yAxisLabel: 'USD',
       maxY: axis.maxY,
       bars: bars,
-      legend: entries
-          .map((e) => LegendEntry(
-                label: e.key,
-                color: palette[e.key] ?? Colors.grey,
-              ))
-          .toList(),
-      yValueFormatter: (v) => '\$${v.toInt()}',
+      // legend currently commented out beacuse it is hidden but can be brought back.
+      // legend: entries
+      //     .map(
+      //       (e) =>
+      //           LegendEntry(label: e.key, color: palette[e.key] ?? Colors.grey),
+      //     )
+      //     .toList(),
+      // yValueFormatter: (v) => '\$${v.toInt()}',
     ),
   );
 }
@@ -258,6 +268,8 @@ class InteractiveBarChartCard extends StatefulWidget {
     required this.data,
     required this.valueFormatter,
     this.seed = 42,
+    this.xLabelConfig = ChartLabelConfig.horizontal,
+    this.legendConfig = ChartLegendConfig.inlineBottom,
   });
 
   final String title;
@@ -265,6 +277,8 @@ class InteractiveBarChartCard extends StatefulWidget {
   final BarChartData data;
   final String Function(double value) valueFormatter;
   final int seed;
+  final ChartLabelConfig xLabelConfig;
+  final ChartLegendConfig legendConfig;
 
   @override
   State<InteractiveBarChartCard> createState() =>
@@ -292,6 +306,8 @@ class _InteractiveBarChartCardState extends State<InteractiveBarChartCard> {
               final painter = HandDrawnBarChartPainter(
                 data: widget.data,
                 seed: widget.seed,
+                xLabelConfig: widget.xLabelConfig,
+                legendConfig: widget.legendConfig,
               );
               final size = Size(constraints.maxWidth, constraints.maxHeight);
               final layout = painter.computeLayout(size);
@@ -333,6 +349,7 @@ class InteractiveLineChartCard extends StatefulWidget {
     this.seed = 42,
     this.unit = '',
     this.grid = kLineGridConfig,
+    this.legendConfig = ChartLegendConfig.inlineBottom,
   });
 
   final String title;
@@ -342,6 +359,7 @@ class InteractiveLineChartCard extends StatefulWidget {
   final int seed;
   final String unit;
   final GridConfig grid;
+  final ChartLegendConfig legendConfig;
 
   @override
   State<InteractiveLineChartCard> createState() =>
@@ -370,6 +388,7 @@ class _InteractiveLineChartCardState extends State<InteractiveLineChartCard> {
                 data: widget.data,
                 seed: widget.seed,
                 grid: widget.grid,
+                legendConfig: widget.legendConfig,
               );
               final size = Size(constraints.maxWidth, constraints.maxHeight);
               final layout = painter.computeLayout(size);
@@ -443,8 +462,18 @@ class _HitLabel extends StatelessWidget {
 
 String _shortMonthLabel(String yyyyMm) {
   const monthNames = [
-    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
   ];
   final parts = yyyyMm.split('-');
   final monthIdx = int.parse(parts[1]) - 1;
@@ -452,28 +481,16 @@ String _shortMonthLabel(String yyyyMm) {
   return "${monthNames[monthIdx]} '$yearShort";
 }
 
-String _shortCategoryLabel(String category) {
-  // Keep category labels short enough to fit on the x-axis.
-  if (category.contains('/')) {
-    return category.split('/').last.trim();
-  }
-  return category;
-}
-
 String _formatUsd(double v) {
   final whole = v.truncateToDouble() == v;
-  return whole
-      ? '\$${v.toInt()}'
-      : '\$${v.toStringAsFixed(2)}';
+  return whole ? '\$${v.toInt()}' : '\$${v.toStringAsFixed(2)}';
 }
 
 String _formatSignedUsd(double v) {
   final sign = v < 0 ? '-' : '';
   final abs = v.abs();
   final whole = abs.truncateToDouble() == abs;
-  return whole
-      ? '$sign\$${abs.toInt()}'
-      : '$sign\$${abs.toStringAsFixed(2)}';
+  return whole ? '$sign\$${abs.toInt()}' : '$sign\$${abs.toStringAsFixed(2)}';
 }
 
 /// Groups expenses by YYYY-MM and returns both the month → total map and

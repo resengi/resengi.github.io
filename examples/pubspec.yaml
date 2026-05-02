@@ -12,10 +12,11 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  hand_drawn_toolkit: ^0.3.0
+  hand_drawn_toolkit: ^0.4.0
   page_turn_animation: ^0.1.4
   recurrence_kit: ^0.1.1
   flip_calendar: ^0.1.2
+  web: ^1.1.0
 
 dev_dependencies:
   flutter_test:

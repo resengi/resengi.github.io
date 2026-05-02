@@ -18,9 +18,10 @@
 // demos exist. They must stay in sync with the slugs referenced on
 // opensource.html. Keep both sides updated together.
 
-import 'dart:html' as html;
+import 'dart:js_interop';
 
 import 'package:flutter/material.dart';
+import 'package:web/web.dart' as web;
 
 import 'demos/flip_calendar_demo.dart';
 import 'demos/hand_drawn_toolkit_demo.dart';
@@ -45,10 +46,7 @@ void main() {
   runApp(
     demo == null
         ? const _LandingPage()
-        : _DemoReadySignal(
-            slug: slug!,
-            child: demo,
-          ),
+        : _DemoReadySignal(slug: slug!, child: demo),
   );
 }
 
@@ -57,10 +55,7 @@ void main() {
 ///
 /// This is the signal that opensource.html should treat as "success".
 class _DemoReadySignal extends StatefulWidget {
-  const _DemoReadySignal({
-    required this.slug,
-    required this.child,
-  });
+  const _DemoReadySignal({required this.slug, required this.child});
 
   final String slug;
   final Widget child;
@@ -80,12 +75,9 @@ class _DemoReadySignalState extends State<_DemoReadySignal> {
       if (_sentReady) return;
       _sentReady = true;
 
-      html.window.parent?.postMessage(
-        {
-          'type': 'resengi:flutter-demo-ready',
-          'demo': widget.slug,
-        },
-        html.window.location.origin,
+      web.window.parent?.postMessage(
+        {'type': 'resengi:flutter-demo-ready', 'demo': widget.slug}.jsify(),
+        web.window.location.origin.toJS,
       );
     });
   }
@@ -124,7 +116,7 @@ class _LandingPage extends StatelessWidget {
                 leading: const Icon(Icons.play_arrow),
                 title: Text(slug),
                 subtitle: Text('?demo=$slug'),
-                onTap: () => html.window.location.assign('?demo=$slug'),
+                onTap: () => web.window.location.assign('?demo=$slug'),
               ),
           ],
         ),

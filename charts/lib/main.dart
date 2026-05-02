@@ -1,7 +1,7 @@
-// ignore: deprecated_member_use, avoid_web_libraries_in_flutter
-import 'dart:html' as html;
+import 'dart:js_interop';
 
 import 'package:flutter/material.dart';
+import 'package:web/web.dart' as web;
 
 import 'chart_theme.dart';
 import 'charts.dart';
@@ -21,11 +21,12 @@ class ChartsApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.transparent,
         textTheme: Theme.of(context).textTheme.apply(
-              fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, '
-                  'Helvetica, Arial, sans-serif',
-              bodyColor: const Color(0xFF344054),
-              displayColor: const Color(0xFF101828),
-            ),
+          fontFamily:
+              '-apple-system, BlinkMacSystemFont, Segoe UI, '
+              'Helvetica, Arial, sans-serif',
+          bodyColor: const Color(0xFF344054),
+          displayColor: const Color(0xFF101828),
+        ),
       ),
       home: const ChartsView(),
     );
@@ -139,11 +140,7 @@ class _ChartsGrid extends StatelessWidget {
             runSpacing: kChartSpacing,
             children: [
               for (final chart in charts)
-                SizedBox(
-                  width: cellWidth,
-                  height: kChartHeight,
-                  child: chart,
-                ),
+                SizedBox(width: cellWidth, height: kChartHeight, child: chart),
             ],
           ),
         );
@@ -160,9 +157,9 @@ class _ChartsGrid extends StatelessWidget {
 /// always served same-origin with the parent page) so nothing ever
 /// leaks to an unexpected parent.
 void _postToParent(Map<String, Object?> message) {
-  final parent = html.window.parent;
+  final parent = web.window.parent;
   if (parent == null) return;
-  parent.postMessage(message, html.window.location.origin);
+  parent.postMessage(message.jsify(), web.window.location.origin.toJS);
 }
 
 class _ErrorState extends StatelessWidget {
