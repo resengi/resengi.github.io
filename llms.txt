@@ -4,28 +4,33 @@ Resengi is a software development and AI engineering studio built on radical fin
 
 ## Core pages
 
-- [Home](https://resengi.io/): Overview of Resengi's values (honesty, transparency, fairness) and services.
-- [What We Do](https://resengi.io/services.html): Services offered — app development, AI engineering, prototype-to-production — with cost-based pricing where under-budget projects cost clients less.
-- [Why We Do What We Do](https://resengi.io/why.html): Mission, vision, two-phase business plan (client work first, products second), core values, and guiding principles.
-- [Financials](https://resengi.io/financials.html): Published financial data — line-item expenses and (upcoming) per-project revenue and margins.
-- [Open Source](https://resengi.io/opensource.html): Published Flutter/Dart packages and contribution philosophy.
-- [Contact](https://resengi.io/contact.html): How to get in touch.
+- [Home](https://www.resengi.io/): Overview of Resengi's values (honesty, transparency, fairness) and services.
+- [What We Do](https://www.resengi.io/services.html): Services offered — app development, AI engineering, prototype-to-production — with cost-based pricing where under-budget projects cost clients less.
+- [Why We Do What We Do](https://www.resengi.io/why.html): Mission, vision, two-phase business plan (client work first, products second), core values, and guiding principles.
+- [Financials](https://www.resengi.io/financials.html): Published financial data — line-item expenses and (upcoming) per-project revenue and margins.
+- [Open Source](https://www.resengi.io/opensource.html): Published Flutter/Dart packages and contribution philosophy.
+- [Contact](https://www.resengi.io/contact.html): How to get in touch.
 
 ## Data
 
-- [Expense records (CSV)](https://resengi.io/data/expenses.csv): Line-item company expenses with date, category, full amount, business-use percentage, and company-attributed amount.
+- [Expense records (CSV)](https://www.resengi.io/data/expenses.csv): Line-item company expenses with date, category, full amount, business-use percentage, and company-attributed amount.
 
 ## Open source
 
 - [pub.dev publisher page](https://pub.dev/publishers/resengi.io): All published Flutter/Dart packages under the Resengi publisher.
 - [GitHub organization](https://github.com/resengi): Source code for all open-source work.
 
-### Published packages
+### Interactive demos
 
 - [hand_drawn_toolkit](https://pub.dev/packages/hand_drawn_toolkit): Lightweight Flutter package for rendering hand-drawn, sketchy lines, borders, and containers. MIT licensed.
+- [hand_drawn_analytics](https://pub.dev/packages/hand_drawn_analytics): A bridge that runs typed analytics_toolkit queries and renders the results through hand_drawn_toolkit charts, tables, and dashboard cards. MIT licensed.
 - [page_turn_animation](https://pub.dev/packages/page_turn_animation): Realistic page turn/curl animation effect for transitioning between content using captured images. MIT licensed.
 - [recurrence_kit](https://pub.dev/packages/recurrence_kit): Standalone recurrence rule system with data models, computation engine, and picker UI widget. MIT licensed.
 - [flip_calendar](https://pub.dev/packages/flip_calendar): Customizable calendar widget with page-turn animations and swipe gesture navigation. MIT licensed.
+
+### Additional projects
+
+- [analytics_toolkit](https://pub.dev/packages/analytics_toolkit): A pure-Dart in-memory query engine for dashboard-style analytics over normalized record collections. Renderer-agnostic. MIT licensed.
 
 ## Contact
 

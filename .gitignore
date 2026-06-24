@@ -22,3 +22,6 @@ Thumbs.db
 *.swo
 
 scripts/
+
+# Misc.
+*.zip

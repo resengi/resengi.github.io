@@ -12,7 +12,10 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  hand_drawn_toolkit: ^0.4.0
+  
+  analytics_toolkit: ^0.2.0
+  hand_drawn_analytics: ^0.1.1
+
   csv: ^8.0.0
   http: ^1.6.0
   web: ^1.1.0

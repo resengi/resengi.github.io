@@ -1,7 +1,7 @@
 # Resengi Website
 
 Marketing and financials site for Resengi, served at
-[resengi.io](https://resengi.io). Static HTML/CSS/JS plus two Flutter web projects that render the live charts and open-source demos.
+[www.resengi.io](https://www.resengi.io). Static HTML/CSS/JS plus two Flutter web projects that render the live charts and open-source demos.
 
 ## Structure
 

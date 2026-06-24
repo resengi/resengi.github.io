@@ -24,6 +24,7 @@ import 'package:flutter/material.dart';
 import 'package:web/web.dart' as web;
 
 import 'demos/flip_calendar_demo.dart';
+import 'demos/hand_drawn_analytics_demo.dart';
 import 'demos/hand_drawn_toolkit_demo.dart';
 import 'demos/page_turn_animation_demo.dart';
 import 'demos/recurrence_kit_demo.dart';
@@ -34,6 +35,7 @@ import 'demos/recurrence_kit_demo.dart';
 /// demo lazy.
 final Map<String, Widget Function()> _demos = {
   'hand-drawn-toolkit': () => const HandDrawnToolkitDemo(),
+  'hand-drawn-analytics': () => const HandDrawnAnalyticsDemo(),
   'page-turn-animation': () => const PageTurnDemo(),
   'recurrence-kit': () => const RecurrenceKitDemo(),
   'flip-calendar': () => const FlipCalendarDemo(),

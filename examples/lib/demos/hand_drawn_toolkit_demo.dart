@@ -62,6 +62,8 @@ class JournalPage extends StatefulWidget {
 }
 
 class _JournalPageState extends State<JournalPage> {
+  bool _packed = false;
+
   final List<_TaskItem> _tasks = [
     const _TaskItem('Read a chapter of a good book'),
     const _TaskItem('Sketch something from observation'),
@@ -211,21 +213,37 @@ class _JournalPageState extends State<JournalPage> {
                 strokeWidth: 1.4,
                 irregularity: 2.5,
                 seed: 77,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: HandDrawnNotebook(
-                  lineHeight: _notebookLineHeight,
-                  lineColor: const Color(0xFFB0AAA0),
-                  irregularity: 2.0,
-                  uniformLines: false,
-                  seed: 50,
-                  child: Column(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 10,
+                ),
+                child: DefaultTextStyle(
+                  style: const TextStyle(
+                    fontSize: _notebookFontSize,
+                    color: _ink,
+                  ),
+                  child: NotebookEntry(
                     children: [
-                      for (var i = 0; i < _tasks.length; i++)
-                        _TaskRow(
-                          task: _tasks[i],
+                      for (var i = 0; i < _tasks.length; i++) ...[
+                        if (i > 0) '\n',
+                        HandDrawnStatusSquare(
+                          color: _tasks[i].color,
+                          isFilled: _tasks[i].isFilled,
+                          indicator: _tasks[i].indicator,
+                          size: 16,
                           seed: i * 13 + 5,
                           onTap: () => _cycleStatus(i),
                         ),
+                        NotebookSpan(
+                          '  ${_tasks[i].label}',
+                          style: TextStyle(
+                            decoration: _tasks[i].isFilled
+                                ? TextDecoration.lineThrough
+                                : null,
+                            decorationColor: _inkLight,
+                          ),
+                        ),
+                      ],
                     ],
                   ),
                 ),
@@ -294,32 +312,279 @@ class _JournalPageState extends State<JournalPage> {
                 strokeWidth: 1.4,
                 irregularity: 2.5,
                 seed: 88,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.only(left: 16, right: 16, bottom: 10),
                 child: HandDrawnNotebook(
                   lineHeight: _notebookLineHeight,
                   lineColor: const Color(0xFFB0AAA0),
                   irregularity: 2.5,
                   seed: 10,
-                  child: Column(
-                    children: [
-                      for (final text in [
-                        'First line on the grid',
-                        'Second line sits neatly',
-                        'Third line, same wobble',
-                      ])
-                        NotebookRow(
-                          lineHeight: _notebookLineHeight,
-                          child: Text(
-                            text,
-                            style: const TextStyle(
-                              fontSize: _notebookFontSize,
-                              height: _notebookLineHeight / _notebookFontSize,
-                              color: _ink,
-                            ),
-                          ),
-                        ),
+                  child: DefaultTextStyle(
+                    style: const TextStyle(
+                      fontSize: _notebookFontSize,
+                      color: _ink,
+                    ),
+                    child: NotebookEntry(
+                      children: [
+                        'First line on the grid\n'
+                            'Second line sits neatly\n'
+                            'Third line, same wobble',
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 28),
+              const HandDrawnDivider(
+                color: _inkLight,
+                indent: 32,
+                endIndent: 32,
+                seed: 72,
+              ),
+              const SizedBox(height: 28),
+              const Text(
+                'Notebook Entries',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: _ink,
+                ),
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'A NotebookEntry lays one flowing run of text, styled spans, and '
+                'inline widgets onto the ruled lines. It sizes itself to its '
+                'content, wrapping text across as many lines as it needs.',
+                style: TextStyle(fontSize: 14, height: 1.55, color: _inkLight),
+              ),
+              const SizedBox(height: 16),
+
+              // 1. Mixed content + wrapping.
+              _caption(
+                'Text, a styled span, and an inline widget flow together and '
+                'wrap across lines.',
+              ),
+              _notebookCard(
+                seed: 91,
+                ruleSeed: 14,
+                entry: NotebookEntry(
+                  children: const [
+                    'Shopping list: ',
+                    HandDrawnStatusSquare(
+                      color: _accent,
+                      isFilled: true,
+                      indicator: StatusIndicator.check,
+                      size: 16,
+                    ),
+                    ' eggs, ',
+                    NotebookSpan(
+                      'whole milk',
+                      style: TextStyle(
+                        color: _accent,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    ', a loaf of sourdough, fresh basil, and a wedge of '
+                        'parmesan — the text wraps onto as many ruled lines as it '
+                        'needs.',
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // 2. Interactive inline widget.
+              _caption('Inline widgets stay interactive — tap the checkbox.'),
+              _notebookCard(
+                seed: 92,
+                ruleSeed: 16,
+                entry: NotebookEntry(
+                  children: [
+                    'Tap the box to pack: ',
+                    HandDrawnStatusSquare(
+                      color: _packed ? _accent : _ink,
+                      isFilled: _packed,
+                      indicator: _packed
+                          ? StatusIndicator.check
+                          : StatusIndicator.none,
+                      size: 16,
+                      seed: 7,
+                      onTap: () => setState(() => _packed = !_packed),
+                    ),
+                    _packed ? ' sunscreen (packed)' : ' sunscreen',
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // 3. Hard line breaks.
+              _caption(r"Hard breaks ('\n') start a new ruled line on demand."),
+              _notebookCard(
+                seed: 93,
+                ruleSeed: 18,
+                entry: NotebookEntry(
+                  children: const [
+                    'Hard line breaks start a new ruled line on demand.\n'
+                        'Use them for verse, addresses, or short notes —\n'
+                        'each break drops to the next line of the grid.',
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // 4. scaleDown — oversized widget.
+              _caption(
+                'Default fit (scaleDown): an oversized inline widget is scaled '
+                'down to one line.',
+              ),
+              _notebookCard(
+                seed: 94,
+                ruleSeed: 20,
+                entry: NotebookEntry(
+                  children: const [
+                    'A 44px square shrinks to the line: ',
+                    HandDrawnStatusSquare(
+                      color: _accent,
+                      isFilled: true,
+                      size: 44,
+                    ),
+                    ' and text keeps flowing.',
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // 5. clip — oversized widget.
+              _caption(
+                'fit: clip — the same oversized widget is cropped to the line '
+                'height instead of scaled.',
+              ),
+              _notebookCard(
+                seed: 95,
+                ruleSeed: 22,
+                entry: NotebookEntry(
+                  fit: NotebookFit.clip,
+                  children: const [
+                    'A 44px square cropped to the line: ',
+                    HandDrawnStatusSquare(
+                      color: _accent,
+                      isFilled: true,
+                      size: 44,
+                    ),
+                    ' only its middle band shows.',
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // 6. scaleDown — oversized text.
+              _caption(
+                'scaleDown also shrinks oversized text to fit the line.',
+              ),
+              _notebookCard(
+                seed: 96,
+                ruleSeed: 24,
+                textStyle: const TextStyle(fontSize: 40, color: _ink),
+                entry: NotebookEntry(
+                  children: const ['Big text shrinks to fit.'],
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // 7. clip — oversized text.
+              _caption(
+                'fit: clip crops oversized text to the line height instead.',
+              ),
+              _notebookCard(
+                seed: 97,
+                ruleSeed: 26,
+                textStyle: const TextStyle(fontSize: 40, color: _ink),
+                entry: NotebookEntry(
+                  fit: NotebookFit.clip,
+                  children: const ['Big text gets cropped.'],
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // 8. wrap: false — single line, horizontal scroll.
+              _caption(
+                'wrap: false keeps everything on one line; place it in a '
+                'horizontal scroll view to scroll the overflow.',
+              ),
+              _notebookCard(
+                seed: 98,
+                ruleSeed: 28,
+                entry: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: NotebookEntry(
+                    wrap: false,
+                    children: const [
+                      'This single line never wraps — it just keeps going to the '
+                          'right past the edge of the page, where it can be scrolled '
+                          'into view.',
                     ],
                   ),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              // 9–11. Vertical alignment of a short line within its row.
+              _caption(
+                'textAlignVertical positions a short line within its taller '
+                'row. (When the line fills the row, there is nothing to '
+                'position.)',
+              ),
+              _notebookCard(
+                seed: 99,
+                ruleSeed: 30,
+                textStyle: const TextStyle(fontSize: 14, color: _ink),
+                entry: NotebookEntry(
+                  textAlignVertical: TextAlignVertical.top,
+                  children: const [
+                    'Top: ',
+                    HandDrawnStatusSquare(
+                      color: _accent,
+                      isFilled: true,
+                      size: 14,
+                    ),
+                    ' the line rides at the top of the row.',
+                  ],
+                ),
+              ),
+              const SizedBox(height: 12),
+              _notebookCard(
+                seed: 100,
+                ruleSeed: 32,
+                textStyle: const TextStyle(fontSize: 14, color: _ink),
+                entry: NotebookEntry(
+                  textAlignVertical: TextAlignVertical.center,
+                  children: const [
+                    'Center: ',
+                    HandDrawnStatusSquare(
+                      color: _accent,
+                      isFilled: true,
+                      size: 14,
+                    ),
+                    ' the line sits in the middle (the default).',
+                  ],
+                ),
+              ),
+              const SizedBox(height: 12),
+              _notebookCard(
+                seed: 101,
+                ruleSeed: 34,
+                textStyle: const TextStyle(fontSize: 14, color: _ink),
+                entry: NotebookEntry(
+                  textAlignVertical: TextAlignVertical.bottom,
+                  children: const [
+                    'Bottom: ',
+                    HandDrawnStatusSquare(
+                      color: _accent,
+                      isFilled: true,
+                      size: 14,
+                    ),
+                    ' the line rests on the rule.',
+                  ],
                 ),
               ),
 
@@ -1977,6 +2242,43 @@ Widget _hitLabel(String? label) => Text(
   ),
 );
 
+Widget _notebookCard({
+  required int seed,
+  required int ruleSeed,
+  required Widget entry,
+  TextStyle textStyle = const TextStyle(
+    fontSize: _notebookFontSize,
+    color: _ink,
+  ),
+  double irregularity = 2.5,
+}) {
+  return HandDrawnContainer(
+    backgroundColor: _cardFill,
+    strokeColor: _ink,
+    strokeWidth: 1.4,
+    irregularity: 2.5,
+    seed: seed,
+    // Vertical padding gives the ruled lines breathing room so the bottom
+    // rule's wobble stays inside the border.
+    padding: const EdgeInsets.only(left: 16, right: 16, bottom: 10),
+    child: HandDrawnNotebook(
+      lineHeight: _notebookLineHeight,
+      lineColor: const Color(0xFFB0AAA0),
+      irregularity: irregularity,
+      seed: ruleSeed,
+      child: DefaultTextStyle(style: textStyle, child: entry),
+    ),
+  );
+}
+
+Widget _caption(String text) => Padding(
+  padding: const EdgeInsets.only(bottom: 8),
+  child: Text(
+    text,
+    style: const TextStyle(fontSize: 13, height: 1.5, color: _inkLight),
+  ),
+);
+
 // ══ STATUS SQUARE DEMO HELPERS ═════════════════════════════════════════════
 
 enum _TaskStatus { pending, completed, skipped }
@@ -2009,46 +2311,6 @@ class _TaskItem {
     _TaskStatus.completed => StatusIndicator.check,
     _TaskStatus.skipped => StatusIndicator.dash,
   };
-}
-
-class _TaskRow extends StatelessWidget {
-  const _TaskRow({required this.task, required this.seed, required this.onTap});
-
-  final _TaskItem task;
-  final int seed;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return NotebookRow(
-      lineHeight: _notebookLineHeight,
-      child: Row(
-        children: [
-          HandDrawnStatusSquare(
-            color: task.color,
-            isFilled: task.isFilled,
-            indicator: task.indicator,
-            size: 18,
-            seed: seed,
-            onTap: onTap,
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              task.label,
-              style: TextStyle(
-                fontSize: _notebookFontSize,
-                height: _notebookLineHeight / _notebookFontSize,
-                color: _ink,
-                decoration: task.isFilled ? TextDecoration.lineThrough : null,
-                decorationColor: _inkLight,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }
 
 class _GoalItem extends StatelessWidget {
