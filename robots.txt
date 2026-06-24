@@ -3,4 +3,4 @@ Allow: /
 Disallow: /flutter-charts/
 Disallow: /flutter-examples/
 
-Sitemap: https://resengi.io/sitemap.xml
+Sitemap: https://www.resengi.io/sitemap.xml

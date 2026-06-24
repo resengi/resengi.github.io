@@ -1,6 +1,8 @@
 import 'dart:js_interop';
 
+import 'package:analytics_toolkit/analytics_toolkit.dart';
 import 'package:flutter/material.dart';
+import 'package:hand_drawn_analytics/hand_drawn_analytics.dart';
 import 'package:web/web.dart' as web;
 
 import 'chart_theme.dart';
@@ -41,39 +43,59 @@ class ChartsView extends StatefulWidget {
 }
 
 class _ChartsViewState extends State<ChartsView> {
-  late Future<FinancialData> _data;
+  /// The source catalog. The scope detects data-source changes by identity and
+  /// derives its query runner from the current instances, so [_sources] and
+  /// [_cache] are held as stable fields: a fresh list per rebuild would read as
+  /// a new data source and refetch every chart.
+  final List<SourceDef> _sources = [expensesSource];
 
-  @override
-  void initState() {
-    super.initState();
-    _data = loadFinancialData();
+  /// One cache per page, fed by the CSV loader. The bridge widgets read records
+  /// through the scope's runner, which composes `cache.getOrFetch`.
+  final SourceSnapshotCache _cache = SourceSnapshotCache(
+    fetcher: fetchExpenseRecords,
+  );
+
+  /// Loads the records once to derive the charts' date range and to surface a
+  /// load failure to the parent page up front (rather than the parent waiting
+  /// on its own timeout). The chart widgets fetch their own data through
+  /// [_cache]; this reads only the date span.
+  late final Future<(DateTime, DateTime)> _dateSpan = _loadDateSpan();
+
+  Future<(DateTime, DateTime)> _loadDateSpan() async {
+    final records = await fetchExpenseRecords(kExpensesSourceId);
+    return expenseDateSpan(records);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: FutureBuilder<FinancialData>(
-        future: _data,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: Padding(
-                padding: EdgeInsets.all(48),
-                child: CircularProgressIndicator(),
+      body: AnalyticsScope(
+        sources: _sources,
+        cache: _cache,
+        colorResolver: categoryColorResolver,
+        child: FutureBuilder<(DateTime, DateTime)>(
+          future: _dateSpan,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              // Tell the parent page to swap in its fallback UI immediately
+              // rather than waiting for the 8-second load-failure timer.
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                _postToParent(const {'type': 'resengi-charts-error'});
+              });
+              return const _ErrorState();
+            }
+            final span = snapshot.data;
+            if (span == null) return const SizedBox.shrink(); // loading
+            // The four measures require a date range; use the data's own span,
+            // so the monthly charts densify across exactly the months present.
+            return _ChartsGrid(
+              dateRange: FixedOverride(
+                range: CustomRange(start: span.$1, end: span.$2),
               ),
             );
-          }
-          if (snapshot.hasError) {
-            // Tell the parent page to swap in its fallback UI immediately
-            // rather than waiting for the 8-second load-failure timer.
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              _postToParent(const {'type': 'resengi-charts-error'});
-            });
-            return _ErrorState(error: snapshot.error);
-          }
-          return _ChartsGrid(data: snapshot.data!);
-        },
+          },
+        ),
       ),
     );
   }
@@ -81,31 +103,22 @@ class _ChartsViewState extends State<ChartsView> {
 
 /// Responsive grid of financial charts.
 ///
-/// The grid uses [LayoutBuilder] to pick a column count from the available
-/// width via [columnsForWidth]. Chart sizing, spacing, breakpoints, and
-/// padding all live in `chart_theme.dart`.
-///
-/// After the grid lays out, we post the exact content height to the
-/// parent page via `window.postMessage`, so the iframe hosting this app
-/// can size itself to fit with no hand-computed CSS heights.
+/// Each chart is a bridge widget that runs its query against the enclosing
+/// [AnalyticsScope]. Sizing, spacing, breakpoints, and padding live in
+/// `chart_theme.dart`. After layout, the exact content height is posted to the
+/// parent page so the hosting iframe sizes itself with no hand-computed CSS.
 class _ChartsGrid extends StatelessWidget {
-  const _ChartsGrid({required this.data});
+  const _ChartsGrid({required this.dateRange});
 
-  final FinancialData data;
+  final DateRangeMode dateRange;
 
   @override
   Widget build(BuildContext context) {
-    // Build the shared category palette once from all categories present
-    // in the data, so every chart that shows a category uses the same
-    // color for it.
-    final categoriesInData = data.expenses.map((e) => e.category).toSet();
-    final palette = buildCategoryPalette(categoriesInData);
-
     final charts = <Widget>[
-      buildMonthlyExpensesChart(data.expenses, palette),
-      buildCategoryTotalsChart(data.expenses, palette),
-      buildCumulativeSpendChart(data.expenses),
-      buildCompanyBooksChart(data.expenses),
+      buildMonthlyExpensesChart(dateRange),
+      buildCategoryTotalsChart(dateRange),
+      buildCumulativeSpendChart(dateRange),
+      buildCompanyBooksChart(dateRange),
     ];
 
     return LayoutBuilder(
@@ -116,9 +129,6 @@ class _ChartsGrid extends StatelessWidget {
         final cellWidth =
             (innerWidth - kChartSpacing * (columns - 1)) / columns;
 
-        // Post the content height to the parent page after this frame
-        // paints. Recomputed on every layout change (e.g. window resize);
-        // parent handler is idempotent.
         final requiredHeight = computeGridHeight(
           maxWidth: width,
           chartCount: charts.length,
@@ -149,13 +159,9 @@ class _ChartsGrid extends StatelessWidget {
   }
 }
 
-/// Sends a structured message to the parent page.
-///
-/// The parent-page listener in `financials.html` validates origin,
-/// source iframe, and message shape before acting on anything we send.
-/// Target-origin is pinned to our own origin (iframes of this app are
-/// always served same-origin with the parent page) so nothing ever
-/// leaks to an unexpected parent.
+/// Sends a structured message to the parent page. The listener in
+/// `financials.html` validates origin, source iframe, and message shape;
+/// target-origin is pinned to our own origin.
 void _postToParent(Map<String, Object?> message) {
   final parent = web.window.parent;
   if (parent == null) return;
@@ -163,8 +169,7 @@ void _postToParent(Map<String, Object?> message) {
 }
 
 class _ErrorState extends StatelessWidget {
-  final Object? error;
-  const _ErrorState({this.error});
+  const _ErrorState();
 
   @override
   Widget build(BuildContext context) {

@@ -100,7 +100,7 @@ We publish our financials because we believe trust is earned through verifiable 
 ### Raw data access
 
 All financial data is available for download as a CSV file at:
-- https://resengi.io/data/expenses.csv
+- https://www.resengi.io/data/expenses.csv
 
 Anyone can download the file, verify it, and build their own analysis.
 
@@ -120,12 +120,21 @@ We believe the engineering community is stronger when its members give back to i
 
 We choose licenses thoughtfully. Small utilities and packages typically use permissive licenses like MIT. Larger frameworks or systems may use more protective licenses. The goal is to be generous while being practical.
 
-### Published packages
+### Interactive demos
+
+Packages with a live, interactive demo on the Open Source page.
 
 - **hand_drawn_toolkit** — A lightweight Flutter package for rendering hand-drawn, sketchy lines, borders, and containers. MIT licensed. https://pub.dev/packages/hand_drawn_toolkit — https://github.com/resengi/hand_drawn_toolkit
+- **hand_drawn_analytics** — A bridge that runs typed analytics_toolkit queries and renders the results through hand_drawn_toolkit charts, tables, and dashboard cards. MIT licensed. https://pub.dev/packages/hand_drawn_analytics — https://github.com/resengi/hand_drawn_analytics
 - **page_turn_animation** — A Flutter package that provides a realistic page turn/curl animation effect for transitioning between content using captured images. MIT licensed. https://pub.dev/packages/page_turn_animation — https://github.com/resengi/page_turn_animation
 - **recurrence_kit** — A standalone recurrence rule system with data models, computation engine, and picker UI widget. MIT licensed. https://pub.dev/packages/recurrence_kit — https://github.com/resengi/recurrence_kit
 - **flip_calendar** — A customizable calendar widget with page-turn animations and swipe gesture navigation. MIT licensed. https://pub.dev/packages/flip_calendar — https://github.com/resengi/flip_calendar
+
+### Additional projects
+
+Open-source work that doesn't lend itself to an inline demo — libraries and other projects we build and release.
+
+- **analytics_toolkit** — A pure-Dart in-memory query engine for dashboard-style analytics over normalized record collections. Renderer-agnostic. MIT licensed. https://pub.dev/packages/analytics_toolkit — https://github.com/resengi/analytics_toolkit
 
 All open-source work is available at https://github.com/resengi and https://pub.dev/publishers/resengi.io.
 
